@@ -11,9 +11,12 @@ function App() {
   console.log(wordToGuess);
   return (
     <>
-      <h1 className="relative text-3xl font-bold text-yellow-300 underline">
-        Hiiiiii
-      </h1>
+      <div className="mx-auto my-0 flex max-w-5xl flex-col items-center gap-8">
+        <div className="text-center text-3xl">Lose Win</div>
+        <HangmanDrawing />
+        <HangmanWord />
+        <Keyboard />
+      </div>
     </>
   );
 }
