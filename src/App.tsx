@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import words from './wordList.json';
+import { useState } from "react";
+import words from "./wordList.json";
 
 function App() {
   const [wordToGuess, setWordToGuess] = useState(() => {
@@ -11,7 +11,9 @@ function App() {
   console.log(wordToGuess);
   return (
     <>
-      <h1>hi</h1>
+      <h1 className="relative text-3xl font-bold text-yellow-300 underline">
+        Hiiiiii
+      </h1>
     </>
   );
 }
