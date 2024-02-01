@@ -4,10 +4,12 @@ import { HangmanWord } from "./HangmanWord";
 import { Keyboard } from "./Keyboard";
 import words from "./wordList.json";
 
+function getWord() {
+  return words[Math.floor(Math.random() * words.length)];
+}
+
 function App() {
-  const [wordToGuess, setWordToGuess] = useState(() => {
-    return words[Math.floor(Math.random() * words.length)];
-  });
+  const [wordToGuess, setWordToGuess] = useState(getWord);
 
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
@@ -45,17 +47,35 @@ function App() {
     };
   }, [guessedLetters]);
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const key = e.key;
+      if (key !== "Enter") return;
+
+      e.preventDefault();
+      setGuessedLetters([]);
+      setWordToGuess(getWord());
+    };
+
+    document.addEventListener("keypress", handler);
+
+    return () => {
+      document.removeEventListener("keypress", handler);
+    };
+  }, []);
+
   return (
     <>
       <div className="mx-auto my-0 flex max-w-5xl flex-col items-center gap-8">
         <div className="text-center text-3xl">
-          {isWinner && "You won! - Refresh to try again"}
-          {isLoser && "Nice Try - Refresh to try again"}
+          {isWinner && "You won! - Press Enter to play again"}
+          {isLoser && "Nice Try - Press Enter to play again"}
         </div>
         <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
         <HangmanWord
           guessedLetters={guessedLetters}
           wordToGuess={wordToGuess}
+          reveal={isLoser}
         />
         <div className="self-stretch">
           <Keyboard
