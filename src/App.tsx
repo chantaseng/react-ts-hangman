@@ -21,7 +21,10 @@ function App() {
       <div className="mx-auto my-0 flex max-w-5xl flex-col items-center gap-8">
         <div className="text-center text-3xl">Lose Win</div>
         <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
-        <HangmanWord />
+        <HangmanWord
+          guessedLetters={guessedLetters}
+          wordToGuess={wordToGuess}
+        />
         <div className="self-stretch">
           <Keyboard />
         </div>
